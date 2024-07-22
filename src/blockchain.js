@@ -27,6 +27,7 @@ class Blockchain {
 
     if (this.isValidBlock(newBlock) && this.isValidChain()) {
       this.blockchain.push(newBlock)
+      return newBlock
     } else {
       console.log('invalid block')
     }
@@ -120,15 +121,4 @@ class Blockchain {
   }
 }
 
-let bc = new Blockchain()
-
-// generate init block
-//bc.generateFirstBlock()
-
-bc.mine()
-//bc.blockchain[1].nonce = 456
-bc.mine()
-bc.mine()
-bc.mine()
-
-console.log(bc.blockchain)
+module.exports = Blockchain
