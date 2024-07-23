@@ -6,9 +6,9 @@ const initBlock = {
   index: 0,
   data: 'Blockchain by Yongjun Wang, this is the first block',
   prevHash: '0',
-  timestamp: 1721656530638,
-  nonce: 102171,
-  hash: '0000220294297a492a6228b300724c836b64f16d23f4a490a5904e36b31b3655'
+  timestamp: 1721726276724,
+  nonce: 24261,
+  hash: '0000fb2c487cb586441df25537241bb8f8e0f533f2d08958c153c7385f7e6c31'
 }
 
 class Blockchain {
@@ -21,12 +21,16 @@ class Blockchain {
   getLastBlock() {
     return this.blockchain[this.blockchain.length - 1]
   }
+
   //挖矿
-  mine() {
+  mine(address) {
+    this.transfer('0', address, 100)
     const newBlock = this.generateNewBlock()
 
     if (this.isValidBlock(newBlock) && this.isValidChain()) {
       this.blockchain.push(newBlock)
+      this.data = []
+      console.log('------------------------- mine ok ----------------------');
       return newBlock
     } else {
       console.log('invalid block')
@@ -111,13 +115,21 @@ class Blockchain {
     //除创世区块外的区块
     for (let i = chain.length - 1; i >= 1; i--) {
       if (!this.isValidBlock(chain[i], chain[i - 1])) {
+        console.log('invalid chain 1')
         return false
       }
     }
     if (JSON.stringify(chain[0]) !== JSON.stringify(initBlock)) {
+      console.log('invalid chain 2')
       return false
     }
     return true
+  }
+  transfer(from, to, amount) {
+    const transObj = { from, to, amount }
+    this.data.push(transObj)
+    console.log(this.data)
+    return transObj
   }
 }
 
