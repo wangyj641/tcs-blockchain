@@ -74,7 +74,7 @@ vorpal
   })
 
 vorpal
-  .command('init', 'Generate the first block')
+  .command('init', 'Generate the first block (It is only used by developer for initialize)')
   .action(function (args, callback) {
     const newBlock = blockchain.generateFirstBlock()
     if (newBlock) {
