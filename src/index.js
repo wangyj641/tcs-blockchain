@@ -28,16 +28,6 @@ function formateLog(data) {
 }
 
 vorpal
-  .command('init', 'Generate the first block')
-  .action(function (args, callback) {
-    const newBlock = blockchain.generateFirstBlock()
-    if (newBlock) {
-      console.log(newBlock);
-    }
-    callback()
-  })
-
-vorpal
   .command('trans <from> <to> <amount>', 'Transfer')
   .action(function (args, callback) {
     let trans = blockchain.transfer(args.from, args.to, args.amount)
@@ -46,6 +36,17 @@ vorpal
     }
     callback()
   })
+
+vorpal
+  .command('blance <address> ', 'Blance')
+  .action(function (args, callback) {
+    const blance = blockchain.blance(args.address)
+    if (blance) {
+      formateLog({ blance, address: args.address })
+    }
+    callback()
+  })
+
 
 vorpal
   .command('detail <index>', 'View detail of block')
@@ -72,6 +73,15 @@ vorpal
     callback()
   })
 
+vorpal
+  .command('init', 'Generate the first block')
+  .action(function (args, callback) {
+    const newBlock = blockchain.generateFirstBlock()
+    if (newBlock) {
+      console.log(newBlock);
+    }
+    callback()
+  })
 
 console.log('welcome to tcs blockchain');
 vorpal.exec('help')

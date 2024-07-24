@@ -22,6 +22,30 @@ class Blockchain {
     return this.blockchain[this.blockchain.length - 1]
   }
 
+  //查看余额
+  //遍历所有block的data查看from和to
+  blance(address) {
+    //from to amount
+    let blance = 0
+    this.blockchain.forEach(block => {
+      //trans是一个个对象
+      //data可能是字符串说明是创世区块
+      if (!Array.isArray(block.data)) {
+        return
+      }
+      block.data.forEach(trans => {
+
+        if (address == trans.from) {
+          blance -= trans.amount
+        }
+        if (address == trans.to) {
+          blance += trans.amount
+        }
+      })
+    })
+    return blance
+  }
+
   //挖矿
   mine(address) {
     this.transfer('0', address, 100)
@@ -126,6 +150,16 @@ class Blockchain {
     return true
   }
   transfer(from, to, amount) {
+
+    if (from !== '0') {
+      //交易非挖矿
+      const blance = this.blance(from)
+      if (blance < amount) {
+        console.log('not enough blance', from, blance, amount);
+        return
+      }
+    }
+
     const transObj = { from, to, amount }
     this.data.push(transObj)
     console.log(this.data)
