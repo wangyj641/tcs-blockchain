@@ -20,6 +20,6 @@ function send(message, port, host) {
 const port = progress.argv[2]
 const host = progress.argv[3]
 if (port && host) {
-  send('你好', port, host)
+  send('Hello', port, host)
 }
 

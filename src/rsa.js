@@ -58,11 +58,11 @@ const keys = generateKeys()
 module.exports = { sign, verify, keys }
 
 
-const trans = { from: 'woniu', to: 'imooc', amount: 100 }
+const trans = { from: 'AAA', to: 'BBB', amount: 100 }
 const signature = sign(trans)
 //console.log(signature);
 
-const trans1 = { from: 'woniu', to: 'imooc', amount: 1000 }
+const trans1 = { from: 'AAA', to: 'BBB', amount: 1000 }
 trans1.signature = signature
 
 const isVerify = verify(trans1, keys.pub)
